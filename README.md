@@ -1,10 +1,13 @@
 # Javascript Object Signing and Encoding Parsing
-[![Gitter](https://img.shields.io/badge/GITTER-JOIN%20CHAT%20%E2%86%92-brightgreen.svg?style=flat-square)](https://gitter.im/lcobucci/jose-parsing?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Total Downloads](https://img.shields.io/packagist/dt/lcobucci/jose-parsing.svg?style=flat-square)](https://packagist.org/packages/lcobucci/jose-parsing) [![Latest Stable Version](https://img.shields.io/packagist/v/lcobucci/jose-parsing.svg?style=flat-square)](https://packagist.org/packages/lcobucci/jose-parsing)
+[![Gitter](https://img.shields.io/badge/GITTER-JOIN%20CHAT%20%E2%86%92-brightgreen.svg?style=flat-square)](https://gitter.im/lcobucci/jose-parsing?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Total Downloads](https://img.shields.io/packagist/dt/lcobucci/jose-parsing.svg?style=flat-square)](https://packagist.org/packages/lcobucci/jose-parsing)
+[![Latest Stable Version](https://img.shields.io/packagist/v/lcobucci/jose-parsing.svg?style=flat-square)](https://packagist.org/packages/lcobucci/jose-parsing)
 
 ![Branch master](https://img.shields.io/badge/branch-master-brightgreen.svg?style=flat-square)
 [![Build Status](https://img.shields.io/travis/lcobucci/jose-parsing/master.svg?style=flat-square)](http://travis-ci.org/#!/lcobucci/jose-parsing)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/lcobucci/jose-parsing/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/lcobucci/jose-parsing/?branch=master)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/lcobucci/jose-parsing/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/lcobucci/jose-parsing/?branch=master)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/ff4b3454-77ae-4882-8955-0c55c5ce5c68/mini.png)](https://insight.sensiolabs.com/projects/ff4b3454-77ae-4882-8955-0c55c5ce5c68)
 
 A basic Base64Url and json encoding/decoding implementation (requires PHP 5.5+).
 
