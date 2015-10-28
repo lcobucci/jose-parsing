@@ -5,6 +5,8 @@
  * @license http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
  */
 
+declare(strict_types=1);
+
 namespace Lcobucci\Jose\Parsing;
 
 /**
@@ -23,8 +25,8 @@ class DecoderTest extends \PHPUnit_Framework_TestCase
         $decoder = new Decoder();
 
         $this->assertEquals(
-            (object) ['test' => 'test'],
-            $decoder->jsonDecode('{"test":"test"}')
+            ['test' => ['test' => []]],
+            $decoder->jsonDecode('{"test":{"test":{}}}')
         );
     }
 

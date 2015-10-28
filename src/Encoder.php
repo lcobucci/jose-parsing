@@ -5,6 +5,8 @@
  * @license http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
  */
 
+declare(strict_types=1);
+
 namespace Lcobucci\Jose\Parsing;
 
 /**
@@ -13,7 +15,7 @@ namespace Lcobucci\Jose\Parsing;
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  * @since 1.0.0
  */
-class Encoder
+final class Encoder
 {
     /**
      * Encodes to JSON, validating the errors
@@ -24,7 +26,7 @@ class Encoder
      *
      * @throws Exception When something goes wrong while encoding
      */
-    public function jsonEncode($data)
+    public function jsonEncode($data): string
     {
         $json = json_encode($data);
 
@@ -44,7 +46,7 @@ class Encoder
      *
      * @link http://tools.ietf.org/html/rfc4648#section-5
      */
-    public function base64UrlEncode($data)
+    public function base64UrlEncode(string $data): string
     {
         return str_replace('=', '', strtr(base64_encode($data), '+/', '-_'));
     }

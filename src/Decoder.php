@@ -5,6 +5,8 @@
  * @license http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
  */
 
+declare(strict_types=1);
+
 namespace Lcobucci\Jose\Parsing;
 
 /**
@@ -13,7 +15,7 @@ namespace Lcobucci\Jose\Parsing;
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  * @since 1.0.0
  */
-class Decoder
+final class Decoder
 {
     /**
      * Decodes from JSON, validating the errors
@@ -23,9 +25,9 @@ class Decoder
      *
      * @throws Exception When something goes wrong while decoding
      */
-    public function jsonDecode($json)
+    public function jsonDecode(string $json)
     {
-        $data = json_decode($json);
+        $data = json_decode($json, true);
 
         if (json_last_error() != JSON_ERROR_NONE) {
             throw new Exception('Error while decoding to JSON: ' . json_last_error_msg());
@@ -43,7 +45,7 @@ class Decoder
      *
      * @link http://tools.ietf.org/html/rfc4648#section-5
      */
-    public function base64UrlDecode($data)
+    public function base64UrlDecode(string $data): string
     {
         if ($remainder = strlen($data) % 4) {
             $data .= str_repeat('=', 4 - $remainder);
