@@ -5,10 +5,12 @@
  * @license http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
  */
 
+declare(strict_types=1);
+
 namespace Lcobucci\Jose\Parsing;
 
 /**
- * An utilitarion class that decodes data according with JOSE specifications
+ * An exception to be used when encoding or decoding
  *
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  * @since 1.0.0
