@@ -27,6 +27,7 @@ We accept contributions via pull requests [here](https://github.com/lcobucci/jos
 ### Branches
 
 - **master**: used to the next release
+- **2.0**: used to fix bugs
 - **1.0**: used to fix bugs
 
 **Thank you and happy coding!**
