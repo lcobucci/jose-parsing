@@ -15,7 +15,7 @@ namespace Lcobucci\Jose\Parsing;
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  * @since 1.0.0
  */
-class Decoder
+final class Decoder
 {
     /**
      * Decodes from JSON, validating the errors
