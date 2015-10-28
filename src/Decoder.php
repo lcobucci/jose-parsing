@@ -27,7 +27,7 @@ final class Decoder
      */
     public function jsonDecode(string $json)
     {
-        $data = json_decode($json);
+        $data = json_decode($json, true);
 
         if (json_last_error() != JSON_ERROR_NONE) {
             throw new Exception('Error while decoding to JSON: ' . json_last_error_msg());
