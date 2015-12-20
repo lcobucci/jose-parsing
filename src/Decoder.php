@@ -15,7 +15,7 @@ namespace Lcobucci\Jose\Parsing;
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  * @since 1.0.0
  */
-final class Decoder
+interface Decoder
 {
     /**
      * Decodes from JSON, validating the errors
@@ -25,16 +25,7 @@ final class Decoder
      *
      * @throws Exception When something goes wrong while decoding
      */
-    public function jsonDecode(string $json)
-    {
-        $data = json_decode($json, true);
-
-        if (json_last_error() != JSON_ERROR_NONE) {
-            throw new Exception('Error while decoding to JSON: ' . json_last_error_msg());
-        }
-
-        return $data;
-    }
+    public function jsonDecode(string $json);
 
     /**
      * Decodes from Base64URL
@@ -45,12 +36,5 @@ final class Decoder
      *
      * @link http://tools.ietf.org/html/rfc4648#section-5
      */
-    public function base64UrlDecode(string $data): string
-    {
-        if ($remainder = strlen($data) % 4) {
-            $data .= str_repeat('=', 4 - $remainder);
-        }
-
-        return base64_decode(strtr($data, '-_', '+/'));
-    }
+    public function base64UrlDecode(string $data): string;
 }

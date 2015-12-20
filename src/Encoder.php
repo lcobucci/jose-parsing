@@ -15,7 +15,7 @@ namespace Lcobucci\Jose\Parsing;
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  * @since 1.0.0
  */
-final class Encoder
+interface Encoder
 {
     /**
      * Encodes to JSON, validating the errors
@@ -26,16 +26,7 @@ final class Encoder
      *
      * @throws Exception When something goes wrong while encoding
      */
-    public function jsonEncode($data): string
-    {
-        $json = json_encode($data);
-
-        if (json_last_error() != JSON_ERROR_NONE) {
-            throw new Exception('Error while encoding to JSON: ' . json_last_error_msg());
-        }
-
-        return $json;
-    }
+    public function jsonEncode($data): string;
 
     /**
      * Encodes to base64url
@@ -46,8 +37,5 @@ final class Encoder
      *
      * @link http://tools.ietf.org/html/rfc4648#section-5
      */
-    public function base64UrlEncode(string $data): string
-    {
-        return str_replace('=', '', strtr(base64_encode($data), '+/', '-_'));
-    }
+    public function base64UrlEncode(string $data): string;
 }
