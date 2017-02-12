@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Lcobucci\Jose\Parsing;
 
 /**
- * An utilitarion class that encodes and decodes data according with JOSE specifications
+ * An utilitarian class that encodes and decodes data according with JOSE specifications
  *
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  * @since 2.1.0
