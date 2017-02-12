@@ -22,7 +22,7 @@ final class Parser implements Encoder, Decoder
      */
     public function jsonEncode($data): string
     {
-        $json = json_encode($data);
+        $json = json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         $this->verifyJsonError('Error while encoding to JSON');
 
         return $json;

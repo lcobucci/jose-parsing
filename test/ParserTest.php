@@ -13,7 +13,7 @@ namespace Lcobucci\Jose\Parsing;
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  * @since 2.1.0
  */
-class ParserTest extends \PHPUnit\Framework\TestCase
+final class ParserTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @test
@@ -26,6 +26,32 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         $encoder = new Parser();
 
         self::assertEquals('{"test":"test"}', $encoder->jsonEncode(['test' => 'test']));
+    }
+
+    /**
+     * @test
+     *
+     * @covers \Lcobucci\Jose\Parsing\Parser::jsonEncode
+     * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
+     */
+    public function jsonEncodeShouldNotEscapeUnicode(): void
+    {
+        $encoder = new Parser();
+
+        self::assertEquals('"汉语"', $encoder->jsonEncode('汉语'));
+    }
+
+    /**
+     * @test
+     *
+     * @covers \Lcobucci\Jose\Parsing\Parser::jsonEncode
+     * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
+     */
+    public function jsonEncodeShouldNotEscapeSlashes(): void
+    {
+        $encoder = new Parser();
+
+        self::assertEquals('"http://google.com"', $encoder->jsonEncode('http://google.com'));
     }
 
     /**
