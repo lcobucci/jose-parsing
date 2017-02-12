@@ -9,7 +9,7 @@
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/lcobucci/jose-parsing/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/lcobucci/jose-parsing/?branch=master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/ff4b3454-77ae-4882-8955-0c55c5ce5c68/mini.png)](https://insight.sensiolabs.com/projects/ff4b3454-77ae-4882-8955-0c55c5ce5c68)
 
-A basic Base64Url and json encoding/decoding implementation (requires PHP 7).
+A basic Base64Url and json encoding/decoding implementation (requires PHP 7.1).
 
 ## Installation
 
