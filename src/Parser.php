@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Lcobucci\Jose\Parsing;
 
 /**
- * An utilitarion class that encodes and decodes data according with JOSE specifications
+ * An utilitarian class that encodes and decodes data according with JOSE specifications
  *
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  * @since 2.1.0
@@ -22,7 +22,7 @@ final class Parser implements Encoder, Decoder
      */
     public function jsonEncode($data): string
     {
-        $json = json_encode($data);
+        $json = json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         $this->verifyJsonError('Error while encoding to JSON');
 
         return $json;
@@ -46,7 +46,7 @@ final class Parser implements Encoder, Decoder
      *
      * @throws Exception
      */
-    private function verifyJsonError(string $message)
+    private function verifyJsonError(string $message): void
     {
         if (json_last_error() != JSON_ERROR_NONE) {
             throw new Exception(sprintf('%s: %s', $message, json_last_error_msg()));

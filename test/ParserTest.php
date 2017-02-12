@@ -13,28 +13,56 @@ namespace Lcobucci\Jose\Parsing;
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  * @since 2.1.0
  */
-class ParserTest extends \PHPUnit_Framework_TestCase
+final class ParserTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @test
      *
-     * @covers Lcobucci\Jose\Parsing\Parser::jsonEncode
+     * @covers \Lcobucci\Jose\Parsing\Parser::jsonEncode
+     * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
      */
-    public function jsonEncodeMustReturnAJSONString()
+    public function jsonEncodeMustReturnAJSONString(): void
     {
         $encoder = new Parser();
 
-        $this->assertEquals('{"test":"test"}', $encoder->jsonEncode(['test' => 'test']));
+        self::assertEquals('{"test":"test"}', $encoder->jsonEncode(['test' => 'test']));
     }
 
     /**
      * @test
      *
-     * @covers Lcobucci\Jose\Parsing\Parser::jsonEncode
+     * @covers \Lcobucci\Jose\Parsing\Parser::jsonEncode
+     * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
+     */
+    public function jsonEncodeShouldNotEscapeUnicode(): void
+    {
+        $encoder = new Parser();
+
+        self::assertEquals('"汉语"', $encoder->jsonEncode('汉语'));
+    }
+
+    /**
+     * @test
+     *
+     * @covers \Lcobucci\Jose\Parsing\Parser::jsonEncode
+     * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
+     */
+    public function jsonEncodeShouldNotEscapeSlashes(): void
+    {
+        $encoder = new Parser();
+
+        self::assertEquals('"http://google.com"', $encoder->jsonEncode('http://google.com'));
+    }
+
+    /**
+     * @test
+     *
+     * @covers \Lcobucci\Jose\Parsing\Parser::jsonEncode
+     * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
      *
      * @expectedException \Lcobucci\Jose\Parsing\Exception
      */
-    public function jsonEncodeMustRaiseExceptionWhenAnErrorHasOccured()
+    public function jsonEncodeMustRaiseExceptionWhenAnErrorHasOccurred(): void
     {
         $encoder = new Parser();
         $encoder->jsonEncode("\xB1\x31");
@@ -43,13 +71,14 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      *
-     * @covers Lcobucci\Jose\Parsing\Parser::jsonDecode
+     * @covers \Lcobucci\Jose\Parsing\Parser::jsonDecode
+     * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
      */
-    public function jsonDecodeMustReturnTheDecodedData()
+    public function jsonDecodeMustReturnTheDecodedData(): void
     {
         $decoder = new Parser();
 
-        $this->assertEquals(
+        self::assertEquals(
             ['test' => ['test' => []]],
             $decoder->jsonDecode('{"test":{"test":{}}}')
         );
@@ -58,11 +87,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      *
-     * @covers Lcobucci\Jose\Parsing\Parser::jsonDecode
+     * @covers \Lcobucci\Jose\Parsing\Parser::jsonDecode
+     * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
      *
      * @expectedException \Lcobucci\Jose\Parsing\Exception
      */
-    public function jsonDecodeMustRaiseExceptionWhenAnErrorHasOccured()
+    public function jsonDecodeMustRaiseExceptionWhenAnErrorHasOccurred(): void
     {
         $decoder = new Parser();
         $decoder->jsonDecode('{"test":\'test\'}');
@@ -71,24 +101,24 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      *
-     * @covers Lcobucci\Jose\Parsing\Parser::base64UrlEncode
+     * @covers \Lcobucci\Jose\Parsing\Parser::base64UrlEncode
      */
-    public function base64UrlEncodeMustReturnAnUrlSafeBase64()
+    public function base64UrlEncodeMustReturnAnUrlSafeBase64(): void
     {
         $data = base64_decode('0MB2wKB+L3yvIdzeggmJ+5WOSLaRLTUPXbpzqUe0yuo=');
 
         $encoder = new Parser();
-        $this->assertEquals('0MB2wKB-L3yvIdzeggmJ-5WOSLaRLTUPXbpzqUe0yuo', $encoder->base64UrlEncode($data));
+        self::assertEquals('0MB2wKB-L3yvIdzeggmJ-5WOSLaRLTUPXbpzqUe0yuo', $encoder->base64UrlEncode($data));
     }
 
     /**
      * @test
      *
-     * @covers Lcobucci\Jose\Parsing\Parser::base64UrlEncode
+     * @covers \Lcobucci\Jose\Parsing\Parser::base64UrlEncode
      *
      * @link https://tools.ietf.org/html/rfc7520#section-4
      */
-    public function base64UrlEncodeMustEncodeBilboMessageProperly()
+    public function base64UrlEncodeMustEncodeBilboMessageProperly(): void
     {
         $message = "It’s a dangerous business, Frodo, going out your door. You step "
                    . "onto the road, and if you don't keep your feet, there’s no knowing "
@@ -100,30 +130,30 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     . 'UgeW91IG1pZ2h0IGJlIHN3ZXB0IG9mZiB0by4';
 
         $encoder = new Parser();
-        $this->assertEquals($expected, $encoder->base64UrlEncode($message));
+        self::assertEquals($expected, $encoder->base64UrlEncode($message));
     }
 
     /**
      * @test
      *
-     * @covers Lcobucci\Jose\Parsing\Parser::base64UrlDecode
+     * @covers \Lcobucci\Jose\Parsing\Parser::base64UrlDecode
      */
-    public function base64UrlDecodeMustReturnTheRightData()
+    public function base64UrlDecodeMustReturnTheRightData(): void
     {
         $data = base64_decode('0MB2wKB+L3yvIdzeggmJ+5WOSLaRLTUPXbpzqUe0yuo=');
 
         $decoder = new Parser();
-        $this->assertEquals($data, $decoder->base64UrlDecode('0MB2wKB-L3yvIdzeggmJ-5WOSLaRLTUPXbpzqUe0yuo'));
+        self::assertEquals($data, $decoder->base64UrlDecode('0MB2wKB-L3yvIdzeggmJ-5WOSLaRLTUPXbpzqUe0yuo'));
     }
 
     /**
      * @test
      *
-     * @covers Lcobucci\Jose\Parsing\Parser::base64UrlDecode
+     * @covers \Lcobucci\Jose\Parsing\Parser::base64UrlDecode
      *
      * @link https://tools.ietf.org/html/rfc7520#section-4
      */
-    public function base64UrlDecodeMustDecodeBilboMessageProperly()
+    public function base64UrlDecodeMustDecodeBilboMessageProperly(): void
     {
         $message = 'SXTigJlzIGEgZGFuZ2Vyb3VzIGJ1c2luZXNzLCBGcm9kbywgZ29pbmcgb3V0IH'
                    . 'lvdXIgZG9vci4gWW91IHN0ZXAgb250byB0aGUgcm9hZCwgYW5kIGlmIHlvdSBk'
@@ -136,6 +166,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
 
         $encoder = new Parser();
-        $this->assertEquals($expected, $encoder->base64UrlDecode($message));
+        self::assertEquals($expected, $encoder->base64UrlDecode($message));
     }
 }
