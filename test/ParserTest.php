@@ -21,7 +21,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      * @covers \Lcobucci\Jose\Parsing\Parser::jsonEncode
      * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
      */
-    public function jsonEncodeMustReturnAJSONString()
+    public function jsonEncodeMustReturnAJSONString(): void
     {
         $encoder = new Parser();
 
@@ -36,7 +36,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      *
      * @expectedException \Lcobucci\Jose\Parsing\Exception
      */
-    public function jsonEncodeMustRaiseExceptionWhenAnErrorHasOccured()
+    public function jsonEncodeMustRaiseExceptionWhenAnErrorHasOccurred(): void
     {
         $encoder = new Parser();
         $encoder->jsonEncode("\xB1\x31");
@@ -48,7 +48,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      * @covers \Lcobucci\Jose\Parsing\Parser::jsonDecode
      * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
      */
-    public function jsonDecodeMustReturnTheDecodedData()
+    public function jsonDecodeMustReturnTheDecodedData(): void
     {
         $decoder = new Parser();
 
@@ -66,7 +66,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      *
      * @expectedException \Lcobucci\Jose\Parsing\Exception
      */
-    public function jsonDecodeMustRaiseExceptionWhenAnErrorHasOccured()
+    public function jsonDecodeMustRaiseExceptionWhenAnErrorHasOccurred(): void
     {
         $decoder = new Parser();
         $decoder->jsonDecode('{"test":\'test\'}');
@@ -77,7 +77,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Lcobucci\Jose\Parsing\Parser::base64UrlEncode
      */
-    public function base64UrlEncodeMustReturnAnUrlSafeBase64()
+    public function base64UrlEncodeMustReturnAnUrlSafeBase64(): void
     {
         $data = base64_decode('0MB2wKB+L3yvIdzeggmJ+5WOSLaRLTUPXbpzqUe0yuo=');
 
@@ -92,7 +92,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      *
      * @link https://tools.ietf.org/html/rfc7520#section-4
      */
-    public function base64UrlEncodeMustEncodeBilboMessageProperly()
+    public function base64UrlEncodeMustEncodeBilboMessageProperly(): void
     {
         $message = "It’s a dangerous business, Frodo, going out your door. You step "
                    . "onto the road, and if you don't keep your feet, there’s no knowing "
@@ -112,7 +112,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      *
      * @covers \Lcobucci\Jose\Parsing\Parser::base64UrlDecode
      */
-    public function base64UrlDecodeMustReturnTheRightData()
+    public function base64UrlDecodeMustReturnTheRightData(): void
     {
         $data = base64_decode('0MB2wKB+L3yvIdzeggmJ+5WOSLaRLTUPXbpzqUe0yuo=');
 
@@ -127,7 +127,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      *
      * @link https://tools.ietf.org/html/rfc7520#section-4
      */
-    public function base64UrlDecodeMustDecodeBilboMessageProperly()
+    public function base64UrlDecodeMustDecodeBilboMessageProperly(): void
     {
         $message = 'SXTigJlzIGEgZGFuZ2Vyb3VzIGJ1c2luZXNzLCBGcm9kbywgZ29pbmcgb3V0IH'
                    . 'lvdXIgZG9vci4gWW91IHN0ZXAgb250byB0aGUgcm9hZCwgYW5kIGlmIHlvdSBk'

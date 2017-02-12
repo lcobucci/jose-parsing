@@ -2,13 +2,16 @@ language: php
 sudo: false
 
 php:
-  - 7.0
-  - hhvm
-
-matrix:
-  allow_failures:
-    - php: hhvm
+  - 7.1
+  - nightly
 
 before_script:
   - composer selfupdate
-  - composer install --prefer-source -o
+  - composer install
+
+script:
+  - ./vendor/bin/phpunit --coverage-clover ./clover.xml --testsuite=unit
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - if [ -f clover.xml ]; then php ocular.phar code-coverage:upload --format=php-clover ./clover.xml; fi

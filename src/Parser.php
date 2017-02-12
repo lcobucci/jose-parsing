@@ -46,7 +46,7 @@ final class Parser implements Encoder, Decoder
      *
      * @throws Exception
      */
-    private function verifyJsonError(string $message)
+    private function verifyJsonError(string $message): void
     {
         if (json_last_error() != JSON_ERROR_NONE) {
             throw new Exception(sprintf('%s: %s', $message, json_last_error_msg()));
