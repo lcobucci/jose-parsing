@@ -18,7 +18,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      *
-     * @covers Lcobucci\Jose\Parsing\Parser::jsonEncode
+     * @covers \Lcobucci\Jose\Parsing\Parser::jsonEncode
+     * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
      */
     public function jsonEncodeMustReturnAJSONString()
     {
@@ -30,7 +31,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      *
-     * @covers Lcobucci\Jose\Parsing\Parser::jsonEncode
+     * @covers \Lcobucci\Jose\Parsing\Parser::jsonEncode
+     * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
      *
      * @expectedException \Lcobucci\Jose\Parsing\Exception
      */
@@ -43,7 +45,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      *
-     * @covers Lcobucci\Jose\Parsing\Parser::jsonDecode
+     * @covers \Lcobucci\Jose\Parsing\Parser::jsonDecode
+     * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
      */
     public function jsonDecodeMustReturnTheDecodedData()
     {
@@ -58,7 +61,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      *
-     * @covers Lcobucci\Jose\Parsing\Parser::jsonDecode
+     * @covers \Lcobucci\Jose\Parsing\Parser::jsonDecode
+     * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
      *
      * @expectedException \Lcobucci\Jose\Parsing\Exception
      */
@@ -71,7 +75,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      *
-     * @covers Lcobucci\Jose\Parsing\Parser::base64UrlEncode
+     * @covers \Lcobucci\Jose\Parsing\Parser::base64UrlEncode
      */
     public function base64UrlEncodeMustReturnAnUrlSafeBase64()
     {
@@ -84,7 +88,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      *
-     * @covers Lcobucci\Jose\Parsing\Parser::base64UrlEncode
+     * @covers \Lcobucci\Jose\Parsing\Parser::base64UrlEncode
      *
      * @link https://tools.ietf.org/html/rfc7520#section-4
      */
@@ -106,7 +110,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      *
-     * @covers Lcobucci\Jose\Parsing\Parser::base64UrlDecode
+     * @covers \Lcobucci\Jose\Parsing\Parser::base64UrlDecode
      */
     public function base64UrlDecodeMustReturnTheRightData()
     {
@@ -119,7 +123,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      *
-     * @covers Lcobucci\Jose\Parsing\Parser::base64UrlDecode
+     * @covers \Lcobucci\Jose\Parsing\Parser::base64UrlDecode
      *
      * @link https://tools.ietf.org/html/rfc7520#section-4
      */
