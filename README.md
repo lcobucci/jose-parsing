@@ -22,7 +22,7 @@ composer require lcobucci/jose-parsing
 
 ### Dependencies
 
-- PHP 7
+- PHP 7.1
 
 ## Basic usage
 

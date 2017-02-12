@@ -13,6 +13,9 @@
         "JOSE",
         "Base64Url"
     ],
+    "config": {
+        "preferred-install": "dist"
+    },
     "license": [
         "BSD-3-Clause"
     ],
@@ -36,7 +39,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.2-dev"
+            "dev-master": "2.3-dev"
         }
     }
 }
