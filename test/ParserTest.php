@@ -13,7 +13,7 @@ namespace Lcobucci\Jose\Parsing;
  * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
  * @since 2.1.0
  */
-class ParserTest extends \PHPUnit_Framework_TestCase
+class ParserTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @test
@@ -25,7 +25,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     {
         $encoder = new Parser();
 
-        $this->assertEquals('{"test":"test"}', $encoder->jsonEncode(['test' => 'test']));
+        self::assertEquals('{"test":"test"}', $encoder->jsonEncode(['test' => 'test']));
     }
 
     /**
@@ -52,7 +52,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     {
         $decoder = new Parser();
 
-        $this->assertEquals(
+        self::assertEquals(
             ['test' => ['test' => []]],
             $decoder->jsonDecode('{"test":{"test":{}}}')
         );
@@ -82,7 +82,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $data = base64_decode('0MB2wKB+L3yvIdzeggmJ+5WOSLaRLTUPXbpzqUe0yuo=');
 
         $encoder = new Parser();
-        $this->assertEquals('0MB2wKB-L3yvIdzeggmJ-5WOSLaRLTUPXbpzqUe0yuo', $encoder->base64UrlEncode($data));
+        self::assertEquals('0MB2wKB-L3yvIdzeggmJ-5WOSLaRLTUPXbpzqUe0yuo', $encoder->base64UrlEncode($data));
     }
 
     /**
@@ -104,7 +104,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     . 'UgeW91IG1pZ2h0IGJlIHN3ZXB0IG9mZiB0by4';
 
         $encoder = new Parser();
-        $this->assertEquals($expected, $encoder->base64UrlEncode($message));
+        self::assertEquals($expected, $encoder->base64UrlEncode($message));
     }
 
     /**
@@ -117,7 +117,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $data = base64_decode('0MB2wKB+L3yvIdzeggmJ+5WOSLaRLTUPXbpzqUe0yuo=');
 
         $decoder = new Parser();
-        $this->assertEquals($data, $decoder->base64UrlDecode('0MB2wKB-L3yvIdzeggmJ-5WOSLaRLTUPXbpzqUe0yuo'));
+        self::assertEquals($data, $decoder->base64UrlDecode('0MB2wKB-L3yvIdzeggmJ-5WOSLaRLTUPXbpzqUe0yuo'));
     }
 
     /**
@@ -140,6 +140,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
 
         $encoder = new Parser();
-        $this->assertEquals($expected, $encoder->base64UrlDecode($message));
+        self::assertEquals($expected, $encoder->base64UrlDecode($message));
     }
 }
