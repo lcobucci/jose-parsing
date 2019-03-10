@@ -23,8 +23,8 @@
         "php": "^7.3"
     },
     "require-dev": {
+        "lcobucci/coding-standard": "^2.0",
         "phpunit/phpunit": "^6.0",
-        "squizlabs/php_codesniffer": "^2.3",
         "phpmd/phpmd": "^2.3"
     },
     "autoload": {

@@ -1,19 +1,25 @@
 <?php
-/**
- * This file is part of Lcobucci\Jose\Parsing, a simple library to encode and decode JOSE objects
- *
- * @license http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- */
-
 declare(strict_types=1);
 
 namespace Lcobucci\Jose\Parsing;
 
+use const JSON_ERROR_NONE;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
+use function base64_decode;
+use function base64_encode;
+use function json_decode;
+use function json_encode;
+use function json_last_error;
+use function json_last_error_msg;
+use function sprintf;
+use function str_repeat;
+use function str_replace;
+use function strlen;
+use function strtr;
+
 /**
- * An utilitarian class that encodes and decodes data according with JOSE specifications
- *
- * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
- * @since 2.1.0
+ * A utilitarian class that encodes and decodes data according with JOSE specifications
  */
 final class Parser implements Encoder, Decoder
 {
@@ -42,13 +48,13 @@ final class Parser implements Encoder, Decoder
     /**
      * Throws a parsing exception when an error happened while encoding or decoding
      *
-     * @param string $message
-     *
      * @throws Exception
      */
     private function verifyJsonError(string $message): void
     {
-        if (json_last_error() != JSON_ERROR_NONE) {
+        $error = json_last_error();
+
+        if ($error !== JSON_ERROR_NONE) {
             throw new Exception(sprintf('%s: %s', $message, json_last_error_msg()));
         }
     }
@@ -66,7 +72,9 @@ final class Parser implements Encoder, Decoder
      */
     public function base64UrlDecode(string $data): string
     {
-        if ($remainder = strlen($data) % 4) {
+        $remainder = strlen($data) % 4;
+
+        if ($remainder !== 0) {
             $data .= str_repeat('=', 4 - $remainder);
         }
 

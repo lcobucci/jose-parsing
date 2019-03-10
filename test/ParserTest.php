@@ -1,19 +1,12 @@
 <?php
-/**
- * This file is part of Lcobucci\Jose\Parsing, a simple library to encode and decode JOSE objects
- *
- * @license http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- */
-
 declare(strict_types=1);
 
 namespace Lcobucci\Jose\Parsing;
 
-/**
- * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
- * @since 2.1.0
- */
-final class ParserTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+use function base64_decode;
+
+final class ParserTest extends TestCase
 {
     /**
      * @test
@@ -57,10 +50,10 @@ final class ParserTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
+     * @expectedException \Lcobucci\Jose\Parsing\Exception
+     *
      * @covers \Lcobucci\Jose\Parsing\Parser::jsonEncode
      * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
-     *
-     * @expectedException \Lcobucci\Jose\Parsing\Exception
      */
     public function jsonEncodeMustRaiseExceptionWhenAnErrorHasOccurred(): void
     {
@@ -87,10 +80,10 @@ final class ParserTest extends \PHPUnit\Framework\TestCase
     /**
      * @test
      *
+     * @expectedException \Lcobucci\Jose\Parsing\Exception
+     *
      * @covers \Lcobucci\Jose\Parsing\Parser::jsonDecode
      * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
-     *
-     * @expectedException \Lcobucci\Jose\Parsing\Exception
      */
     public function jsonDecodeMustRaiseExceptionWhenAnErrorHasOccurred(): void
     {
@@ -112,17 +105,17 @@ final class ParserTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @link https://tools.ietf.org/html/rfc7520#section-4
+     *
      * @test
      *
      * @covers \Lcobucci\Jose\Parsing\Parser::base64UrlEncode
-     *
-     * @link https://tools.ietf.org/html/rfc7520#section-4
      */
     public function base64UrlEncodeMustEncodeBilboMessageProperly(): void
     {
-        $message = "It’s a dangerous business, Frodo, going out your door. You step "
+        $message = 'It’s a dangerous business, Frodo, going out your door. You step '
                    . "onto the road, and if you don't keep your feet, there’s no knowing "
-                   . "where you might be swept off to.";
+                   . 'where you might be swept off to.';
 
         $expected = 'SXTigJlzIGEgZGFuZ2Vyb3VzIGJ1c2luZXNzLCBGcm9kbywgZ29pbmcgb3V0IH'
                     . 'lvdXIgZG9vci4gWW91IHN0ZXAgb250byB0aGUgcm9hZCwgYW5kIGlmIHlvdSBk'
@@ -147,11 +140,11 @@ final class ParserTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @link https://tools.ietf.org/html/rfc7520#section-4
+     *
      * @test
      *
      * @covers \Lcobucci\Jose\Parsing\Parser::base64UrlDecode
-     *
-     * @link https://tools.ietf.org/html/rfc7520#section-4
      */
     public function base64UrlDecodeMustDecodeBilboMessageProperly(): void
     {
@@ -160,10 +153,9 @@ final class ParserTest extends \PHPUnit\Framework\TestCase
                    . 'b24ndCBrZWVwIHlvdXIgZmVldCwgdGhlcmXigJlzIG5vIGtub3dpbmcgd2hlcm'
                    . 'UgeW91IG1pZ2h0IGJlIHN3ZXB0IG9mZiB0by4';
 
-        $expected = "It’s a dangerous business, Frodo, going out your door. You step "
+        $expected = 'It’s a dangerous business, Frodo, going out your door. You step '
                     . "onto the road, and if you don't keep your feet, there’s no knowing "
-                    . "where you might be swept off to.";
-
+                    . 'where you might be swept off to.';
 
         $encoder = new Parser();
         self::assertEquals($expected, $encoder->base64UrlDecode($message));
