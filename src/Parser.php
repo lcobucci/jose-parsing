@@ -9,6 +9,7 @@ use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
 use function base64_decode;
 use function base64_encode;
+use function is_string;
 use function json_decode;
 use function json_encode;
 use function str_repeat;
@@ -64,6 +65,12 @@ final class Parser implements Encoder, Decoder
             $data .= str_repeat('=', 4 - $remainder);
         }
 
-        return base64_decode(strtr($data, '-_', '+/'));
+        $decodedContent = base64_decode(strtr($data, '-_', '+/'), true);
+
+        if (! is_string($decodedContent)) {
+            throw new Exception('Error while decoding from Base64: invalid characters used');
+        }
+
+        return $decodedContent;
     }
 }

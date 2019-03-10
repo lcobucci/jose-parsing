@@ -40,3 +40,8 @@ jobs:
       env: CODE_STYLE=1
       script:
         - ./vendor/bin/phpcs
+
+    - stage: Quality
+      env: STATIC_ANALYSIS=1
+      script:
+        - ./vendor/bin/phpstan analyse

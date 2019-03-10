@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace Lcobucci\Jose\Parsing;
 
 use PHPUnit\Framework\TestCase;
+use function assert;
 use function base64_decode;
+use function is_string;
 
 final class ParserTest extends TestCase
 {
@@ -92,7 +94,8 @@ final class ParserTest extends TestCase
      */
     public function base64UrlEncodeMustReturnAnUrlSafeBase64(): void
     {
-        $data = base64_decode('0MB2wKB+L3yvIdzeggmJ+5WOSLaRLTUPXbpzqUe0yuo=');
+        $data = base64_decode('0MB2wKB+L3yvIdzeggmJ+5WOSLaRLTUPXbpzqUe0yuo=', true);
+        assert(is_string($data));
 
         $encoder = new Parser();
         self::assertEquals('0MB2wKB-L3yvIdzeggmJ-5WOSLaRLTUPXbpzqUe0yuo', $encoder->base64UrlEncode($data));
@@ -125,9 +128,22 @@ final class ParserTest extends TestCase
      *
      * @covers \Lcobucci\Jose\Parsing\Parser::base64UrlDecode
      */
+    public function base64UrlDecodeMustRaiseExceptionWhenInvalidBase64CharsAreUsed(): void
+    {
+        $decoder = new Parser();
+
+        $this->expectException(Exception::class);
+        $decoder->base64UrlDecode('áááááá');
+    }
+
+    /**
+     * @test
+     *
+     * @covers \Lcobucci\Jose\Parsing\Parser::base64UrlDecode
+     */
     public function base64UrlDecodeMustReturnTheRightData(): void
     {
-        $data = base64_decode('0MB2wKB+L3yvIdzeggmJ+5WOSLaRLTUPXbpzqUe0yuo=');
+        $data = base64_decode('0MB2wKB+L3yvIdzeggmJ+5WOSLaRLTUPXbpzqUe0yuo=', true);
 
         $decoder = new Parser();
         self::assertEquals($data, $decoder->base64UrlDecode('0MB2wKB-L3yvIdzeggmJ-5WOSLaRLTUPXbpzqUe0yuo'));
