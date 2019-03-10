@@ -1,31 +1,40 @@
 <?php
-/**
- * This file is part of Lcobucci\Jose\Parsing, a simple library to encode and decode JOSE objects
- *
- * @license http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- */
-
 declare(strict_types=1);
 
 namespace Lcobucci\Jose\Parsing;
 
+use JsonException;
+use const JSON_THROW_ON_ERROR;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
+use function base64_decode;
+use function base64_encode;
+use function is_string;
+use function json_decode;
+use function json_encode;
+use function str_repeat;
+use function str_replace;
+use function strlen;
+use function strtr;
+
 /**
- * An utilitarian class that encodes and decodes data according with JOSE specifications
- *
- * @author Luís Otávio Cobucci Oblonczyk <lcobucci@gmail.com>
- * @since 2.1.0
+ * A utilitarian class that encodes and decodes data according with JOSE specifications
  */
 final class Parser implements Encoder, Decoder
 {
+    private const JSON_DEFAULT_DEPTH    = 512;
+    private const BASE64_PADDING_LENGTH = 4;
+
     /**
      * {@inheritdoc}
      */
     public function jsonEncode($data): string
     {
-        $json = json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        $this->verifyJsonError('Error while encoding to JSON');
-
-        return $json;
+        try {
+            return json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+        } catch (JsonException $exception) {
+            throw new Exception('Error while encoding to JSON', 0, $exception);
+        }
     }
 
     /**
@@ -33,23 +42,10 @@ final class Parser implements Encoder, Decoder
      */
     public function jsonDecode(string $json)
     {
-        $data = json_decode($json, true);
-        $this->verifyJsonError('Error while decoding from JSON');
-
-        return $data;
-    }
-
-    /**
-     * Throws a parsing exception when an error happened while encoding or decoding
-     *
-     * @param string $message
-     *
-     * @throws Exception
-     */
-    private function verifyJsonError(string $message): void
-    {
-        if (json_last_error() != JSON_ERROR_NONE) {
-            throw new Exception(sprintf('%s: %s', $message, json_last_error_msg()));
+        try {
+            return json_decode($json, true, self::JSON_DEFAULT_DEPTH, JSON_THROW_ON_ERROR);
+        } catch (JsonException $exception) {
+            throw new Exception('Error while decoding to JSON', 0, $exception);
         }
     }
 
@@ -66,10 +62,18 @@ final class Parser implements Encoder, Decoder
      */
     public function base64UrlDecode(string $data): string
     {
-        if ($remainder = strlen($data) % 4) {
-            $data .= str_repeat('=', 4 - $remainder);
+        $remainder = strlen($data) % self::BASE64_PADDING_LENGTH;
+
+        if ($remainder !== 0) {
+            $data .= str_repeat('=', self::BASE64_PADDING_LENGTH - $remainder);
         }
 
-        return base64_decode(strtr($data, '-_', '+/'));
+        $decodedContent = base64_decode(strtr($data, '-_', '+/'), true);
+
+        if (! is_string($decodedContent)) {
+            throw new Exception('Error while decoding from Base64: invalid characters used');
+        }
+
+        return $decodedContent;
     }
 }
