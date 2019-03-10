@@ -56,6 +56,7 @@ final class ParserTest extends TestCase
         $encoder = new Parser();
 
         $this->expectException(Exception::class);
+        $this->expectExceptionCode(0);
         $encoder->jsonEncode("\xB1\x31");
     }
 
@@ -84,6 +85,7 @@ final class ParserTest extends TestCase
         $decoder = new Parser();
 
         $this->expectException(Exception::class);
+        $this->expectExceptionCode(0);
         $decoder->jsonDecode('{"test":\'test\'}');
     }
 
@@ -133,6 +135,7 @@ final class ParserTest extends TestCase
         $decoder = new Parser();
 
         $this->expectException(Exception::class);
+        $this->expectExceptionCode(0);
         $decoder->base64UrlDecode('áááááá');
     }
 
@@ -147,6 +150,18 @@ final class ParserTest extends TestCase
 
         $decoder = new Parser();
         self::assertEquals($data, $decoder->base64UrlDecode('0MB2wKB-L3yvIdzeggmJ-5WOSLaRLTUPXbpzqUe0yuo'));
+    }
+
+    /**
+     * @test
+     *
+     * @covers \Lcobucci\Jose\Parsing\Parser::base64UrlDecode
+     */
+    public function base64UrlDecodeShouldAlsoNotAddPaddingWhenItIsNotNeeded(): void
+    {
+        $decoder = new Parser();
+
+        self::assertSame('any carnal pleasur', $decoder->base64UrlDecode('YW55IGNhcm5hbCBwbGVhc3Vy'));
     }
 
     /**

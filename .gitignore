@@ -3,3 +3,4 @@
 /phpunit.xml
 /.phpcs.cache
 .phpunit.result.cache
+/infection.log

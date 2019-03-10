@@ -22,6 +22,9 @@ use function strtr;
  */
 final class Parser implements Encoder, Decoder
 {
+    private const JSON_DEFAULT_DEPTH    = 512;
+    private const BASE64_PADDING_LENGTH = 4;
+
     /**
      * {@inheritdoc}
      */
@@ -40,7 +43,7 @@ final class Parser implements Encoder, Decoder
     public function jsonDecode(string $json)
     {
         try {
-            return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
+            return json_decode($json, true, self::JSON_DEFAULT_DEPTH, JSON_THROW_ON_ERROR);
         } catch (JsonException $exception) {
             throw new Exception('Error while decoding to JSON', 0, $exception);
         }
@@ -59,10 +62,10 @@ final class Parser implements Encoder, Decoder
      */
     public function base64UrlDecode(string $data): string
     {
-        $remainder = strlen($data) % 4;
+        $remainder = strlen($data) % self::BASE64_PADDING_LENGTH;
 
         if ($remainder !== 0) {
-            $data .= str_repeat('=', 4 - $remainder);
+            $data .= str_repeat('=', self::BASE64_PADDING_LENGTH - $remainder);
         }
 
         $decodedContent = base64_decode(strtr($data, '-_', '+/'), true);
