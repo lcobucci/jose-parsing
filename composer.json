@@ -20,7 +20,8 @@
         "BSD-3-Clause"
     ],
     "require": {
-        "php": "^7.3"
+        "php": "^7.3",
+        "ext-json": "*"
     },
     "require-dev": {
         "lcobucci/coding-standard": "^2.0",
