@@ -12,7 +12,6 @@ final class ParserTest extends TestCase
      * @test
      *
      * @covers \Lcobucci\Jose\Parsing\Parser::jsonEncode
-     * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
      */
     public function jsonEncodeMustReturnAJSONString(): void
     {
@@ -25,7 +24,6 @@ final class ParserTest extends TestCase
      * @test
      *
      * @covers \Lcobucci\Jose\Parsing\Parser::jsonEncode
-     * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
      */
     public function jsonEncodeShouldNotEscapeUnicode(): void
     {
@@ -38,7 +36,6 @@ final class ParserTest extends TestCase
      * @test
      *
      * @covers \Lcobucci\Jose\Parsing\Parser::jsonEncode
-     * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
      */
     public function jsonEncodeShouldNotEscapeSlashes(): void
     {
@@ -51,7 +48,6 @@ final class ParserTest extends TestCase
      * @test
      *
      * @covers \Lcobucci\Jose\Parsing\Parser::jsonEncode
-     * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
      */
     public function jsonEncodeMustRaiseExceptionWhenAnErrorHasOccurred(): void
     {
@@ -65,7 +61,6 @@ final class ParserTest extends TestCase
      * @test
      *
      * @covers \Lcobucci\Jose\Parsing\Parser::jsonDecode
-     * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
      */
     public function jsonDecodeMustReturnTheDecodedData(): void
     {
@@ -81,7 +76,6 @@ final class ParserTest extends TestCase
      * @test
      *
      * @covers \Lcobucci\Jose\Parsing\Parser::jsonDecode
-     * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
      */
     public function jsonDecodeMustRaiseExceptionWhenAnErrorHasOccurred(): void
     {

@@ -3,16 +3,14 @@ declare(strict_types=1);
 
 namespace Lcobucci\Jose\Parsing;
 
-use const JSON_ERROR_NONE;
+use JsonException;
+use const JSON_THROW_ON_ERROR;
 use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
 use function base64_decode;
 use function base64_encode;
 use function json_decode;
 use function json_encode;
-use function json_last_error;
-use function json_last_error_msg;
-use function sprintf;
 use function str_repeat;
 use function str_replace;
 use function strlen;
@@ -28,10 +26,11 @@ final class Parser implements Encoder, Decoder
      */
     public function jsonEncode($data): string
     {
-        $json = json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        $this->verifyJsonError('Error while encoding to JSON');
-
-        return $json;
+        try {
+            return json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+        } catch (JsonException $exception) {
+            throw new Exception('Error while encoding to JSON', 0, $exception);
+        }
     }
 
     /**
@@ -39,23 +38,10 @@ final class Parser implements Encoder, Decoder
      */
     public function jsonDecode(string $json)
     {
-        $data = json_decode($json, true);
-        $this->verifyJsonError('Error while decoding from JSON');
-
-        return $data;
-    }
-
-    /**
-     * Throws a parsing exception when an error happened while encoding or decoding
-     *
-     * @throws Exception
-     */
-    private function verifyJsonError(string $message): void
-    {
-        $error = json_last_error();
-
-        if ($error !== JSON_ERROR_NONE) {
-            throw new Exception(sprintf('%s: %s', $message, json_last_error_msg()));
+        try {
+            return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException $exception) {
+            throw new Exception('Error while decoding to JSON', 0, $exception);
         }
     }
 
