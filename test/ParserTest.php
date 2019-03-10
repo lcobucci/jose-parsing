@@ -50,14 +50,14 @@ final class ParserTest extends TestCase
     /**
      * @test
      *
-     * @expectedException \Lcobucci\Jose\Parsing\Exception
-     *
      * @covers \Lcobucci\Jose\Parsing\Parser::jsonEncode
      * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
      */
     public function jsonEncodeMustRaiseExceptionWhenAnErrorHasOccurred(): void
     {
         $encoder = new Parser();
+
+        $this->expectException(Exception::class);
         $encoder->jsonEncode("\xB1\x31");
     }
 
@@ -80,14 +80,14 @@ final class ParserTest extends TestCase
     /**
      * @test
      *
-     * @expectedException \Lcobucci\Jose\Parsing\Exception
-     *
      * @covers \Lcobucci\Jose\Parsing\Parser::jsonDecode
      * @covers \Lcobucci\Jose\Parsing\Parser::verifyJsonError
      */
     public function jsonDecodeMustRaiseExceptionWhenAnErrorHasOccurred(): void
     {
         $decoder = new Parser();
+
+        $this->expectException(Exception::class);
         $decoder->jsonDecode('{"test":\'test\'}');
     }
 
