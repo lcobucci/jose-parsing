@@ -20,7 +20,7 @@
         "BSD-3-Clause"
     ],
     "require": {
-        "php": "^7.1"
+        "php": "^7.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.0",
