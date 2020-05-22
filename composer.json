@@ -4,7 +4,7 @@
     "type": "library",
     "authors": [
         {
-            "name": "Luís Otávio Cobucci Oblonczyk",
+            "name": "Luís Cobucci",
             "email": "lcobucci@gmail.com",
             "role": "Developer"
         }
@@ -14,23 +14,25 @@
         "Base64Url"
     ],
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "sort-packages": true
     },
     "license": [
         "BSD-3-Clause"
     ],
     "require": {
-        "php": "^7.3",
+        "php": "^7.4 || ^8.0",
         "ext-json": "*"
     },
     "require-dev": {
-        "infection/infection": "^0.12",
-        "lcobucci/coding-standard": "^2.0",
-        "phpstan/phpstan": "^0.11",
-        "phpstan/phpstan-deprecation-rules": "^0.11",
-        "phpstan/phpstan-phpunit": "^0.11",
-        "phpstan/phpstan-strict-rules": "^0.11",
-        "phpunit/phpunit": "^8.5"
+        "infection/infection": "^0.16",
+        "lcobucci/coding-standard": "^4.0",
+        "phpstan/extension-installer": "^1.0",
+        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan-deprecation-rules": "^0.12",
+        "phpstan/phpstan-phpunit": "^0.12",
+        "phpstan/phpstan-strict-rules": "^0.12",
+        "phpunit/phpunit": "^9.1"
     },
     "autoload": {
         "psr-4": {
@@ -44,7 +46,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.3-dev"
+            "dev-master": "3.0-dev"
         }
     }
 }
