@@ -4,9 +4,6 @@ declare(strict_types=1);
 namespace Lcobucci\Jose\Parsing;
 
 use JsonException;
-use const JSON_THROW_ON_ERROR;
-use const JSON_UNESCAPED_SLASHES;
-use const JSON_UNESCAPED_UNICODE;
 use function base64_decode;
 use function base64_encode;
 use function is_string;
@@ -16,6 +13,9 @@ use function str_repeat;
 use function str_replace;
 use function strlen;
 use function strtr;
+use const JSON_THROW_ON_ERROR;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
 
 /**
  * A utilitarian class that encodes and decodes data according with JOSE specifications
@@ -49,17 +49,11 @@ final class Parser implements Encoder, Decoder
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function base64UrlEncode(string $data): string
     {
         return str_replace('=', '', strtr(base64_encode($data), '+/', '-_'));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function base64UrlDecode(string $data): string
     {
         $remainder = strlen($data) % self::BASE64_PADDING_LENGTH;
