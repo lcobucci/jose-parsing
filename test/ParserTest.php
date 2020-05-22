@@ -19,7 +19,7 @@ final class ParserTest extends TestCase
     {
         $encoder = new Parser();
 
-        self::assertEquals('{"test":"test"}', $encoder->jsonEncode(['test' => 'test']));
+        self::assertSame('{"test":"test"}', $encoder->jsonEncode(['test' => 'test']));
     }
 
     /**
@@ -31,7 +31,7 @@ final class ParserTest extends TestCase
     {
         $encoder = new Parser();
 
-        self::assertEquals('"汉语"', $encoder->jsonEncode('汉语'));
+        self::assertSame('"汉语"', $encoder->jsonEncode('汉语'));
     }
 
     /**
@@ -43,7 +43,7 @@ final class ParserTest extends TestCase
     {
         $encoder = new Parser();
 
-        self::assertEquals('"http://google.com"', $encoder->jsonEncode('http://google.com'));
+        self::assertSame('"http://google.com"', $encoder->jsonEncode('http://google.com'));
     }
 
     /**
@@ -69,7 +69,7 @@ final class ParserTest extends TestCase
     {
         $decoder = new Parser();
 
-        self::assertEquals(
+        self::assertSame(
             ['test' => ['test' => []]],
             $decoder->jsonDecode('{"test":{"test":{}}}')
         );
@@ -100,7 +100,7 @@ final class ParserTest extends TestCase
         assert(is_string($data));
 
         $encoder = new Parser();
-        self::assertEquals('0MB2wKB-L3yvIdzeggmJ-5WOSLaRLTUPXbpzqUe0yuo', $encoder->base64UrlEncode($data));
+        self::assertSame('0MB2wKB-L3yvIdzeggmJ-5WOSLaRLTUPXbpzqUe0yuo', $encoder->base64UrlEncode($data));
     }
 
     /**
@@ -122,7 +122,7 @@ final class ParserTest extends TestCase
                     . 'UgeW91IG1pZ2h0IGJlIHN3ZXB0IG9mZiB0by4';
 
         $encoder = new Parser();
-        self::assertEquals($expected, $encoder->base64UrlEncode($message));
+        self::assertSame($expected, $encoder->base64UrlEncode($message));
     }
 
     /**
@@ -149,7 +149,7 @@ final class ParserTest extends TestCase
         $data = base64_decode('0MB2wKB+L3yvIdzeggmJ+5WOSLaRLTUPXbpzqUe0yuo=', true);
 
         $decoder = new Parser();
-        self::assertEquals($data, $decoder->base64UrlDecode('0MB2wKB-L3yvIdzeggmJ-5WOSLaRLTUPXbpzqUe0yuo'));
+        self::assertSame($data, $decoder->base64UrlDecode('0MB2wKB-L3yvIdzeggmJ-5WOSLaRLTUPXbpzqUe0yuo'));
     }
 
     /**
@@ -183,6 +183,6 @@ final class ParserTest extends TestCase
                     . 'where you might be swept off to.';
 
         $encoder = new Parser();
-        self::assertEquals($expected, $encoder->base64UrlDecode($message));
+        self::assertSame($expected, $encoder->base64UrlDecode($message));
     }
 }
