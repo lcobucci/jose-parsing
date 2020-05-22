@@ -157,6 +157,17 @@ final class ParserTest extends TestCase
      *
      * @covers \Lcobucci\Jose\Parsing\Parser::base64UrlDecode
      */
+    public function base64UrlDecodeMustAddPaddingToDecodeThins(): void
+    {
+        $decoder = new Parser();
+        self::assertSame('I', $decoder->base64UrlDecode('SQ'));
+    }
+
+    /**
+     * @test
+     *
+     * @covers \Lcobucci\Jose\Parsing\Parser::base64UrlDecode
+     */
     public function base64UrlDecodeShouldAlsoNotAddPaddingWhenItIsNotNeeded(): void
     {
         $decoder = new Parser();
