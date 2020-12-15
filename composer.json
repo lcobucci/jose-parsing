@@ -2,6 +2,7 @@
     "name": "lcobucci/jose-parsing",
     "description": "A basic Base64Url and JSON encoding/decoding implementation",
     "type": "library",
+    "abandoned": true,
     "authors": [
         {
             "name": "Luís Cobucci",
